@@ -1,0 +1,785 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Princess & Hu Sheng Shih | RSVP</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&family=Parisienne&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: #deddda;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px 15px;
+  color: #625044;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.invitation {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  min-height: 850px;
+  background: #faf8f2;
+  overflow: hidden;
+  box-shadow: 0 15px 45px rgba(0,0,0,0.13);
+  animation: fadeIn 1.2s ease;
+}
+
+.paper-left {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 52%;
+  background: radial-gradient(#e9e2d7 0.7px, transparent 0.7px);
+  background-size: 8px 8px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.leaves {
+  position: absolute;
+  font-size: 60px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.top-left {
+  top: 5px;
+  left: 5px;
+  transform: rotate(-35deg);
+}
+
+.top-right {
+  top: 5px;
+  right: 5px;
+  transform: rotate(35deg);
+}
+
+.bottom-left {
+  bottom: 5px;
+  left: 5px;
+  transform: rotate(145deg);
+}
+
+.bottom-right {
+  bottom: 5px;
+  right: 5px;
+  transform: rotate(-145deg);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 60px 45px 40px;
+  text-align: center;
+}
+
+.couple {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  letter-spacing: 4px;
+  font-weight: 600;
+  margin-bottom: 35px;
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-family: 'Parisienne', cursive;
+  font-size: clamp(55px, 9vw, 78px);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  letter-spacing: 3px;
+  margin-top: 12px;
+}
+
+.message {
+  max-width: 410px;
+  margin: 25px auto 35px;
+  font-size: 11px;
+  line-height: 2;
+  letter-spacing: 1px;
+}
+
+.rsvp-form {
+  max-width: 420px;
+  margin: auto;
+  text-align: left;
+}
+
+.field {
+  margin-bottom: 22px;
+}
+
+.field label {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #cdbba2;
+  background: rgba(255,255,255,0.65);
+  color: #625044;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  outline: none;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: #929d87;
+  box-shadow: 0 0 0 2px rgba(146,157,135,0.15);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.search-note {
+  font-size: 10px;
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+  color: #887b6c;
+  margin-bottom: 12px;
+}
+
+.search-row {
+  display: flex;
+  gap: 8px;
+}
+
+.search-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-button {
+  padding: 0 17px;
+  border: 1px solid #b99e7d;
+  background: #929d87;
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-button:hover {
+  background: #777f6d;
+}
+
+.suggestions {
+  display: none;
+  background: #fffefa;
+  border: 1px solid #d5c8b7;
+  border-top: none;
+  max-height: 210px;
+  overflow-y: auto;
+}
+
+.suggestion-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  font-size: 11px;
+  border-bottom: 1px solid #eee7dc;
+  color: #625044;
+}
+
+.add-button {
+  padding: 7px 11px;
+  border: 1px solid #929d87;
+  background: #929d87;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.add-button:hover {
+  background: #777f6d;
+}
+
+.add-button:disabled {
+  background: #d5d0c7;
+  border-color: #d5d0c7;
+  cursor: not-allowed;
+}
+
+.no-result {
+  padding: 13px;
+  font-size: 11px;
+  color: #987b70;
+  line-height: 1.8;
+}
+
+.guest-list-section {
+  display: none;
+  margin-top: 25px;
+  padding: 18px;
+  border: 1px solid #d5c8b7;
+  background: rgba(255,255,255,0.45);
+  animation: fadeIn 0.5s ease;
+}
+
+.guest-list-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  margin-bottom: 5px;
+}
+
+.guest-list-note {
+  font-size: 10px;
+  color: #887b6c;
+  margin-bottom: 13px;
+  line-height: 1.8;
+}
+
+.guest-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid #e8dfd3;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+}
+
+.remove-button {
+  border: none;
+  background: transparent;
+  color: #987b70;
+  font-size: 10px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.guest-total {
+  margin-top: 12px;
+  font-size: 10px;
+  color: #777f6d;
+  letter-spacing: 1px;
+  text-align: right;
+}
+
+#rsvpFields {
+  display: none;
+  margin-top: 28px;
+  animation: fadeIn 0.7s ease;
+}
+
+.attendance {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.attendance label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 10px;
+  border: 1px solid #cdbba2;
+  background: rgba(255,255,255,0.55);
+  font-size: 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.attendance input {
+  width: auto;
+  accent-color: #929d87;
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  margin-top: 15px;
+  padding: 15px;
+  border: 1px solid #b99e7d;
+  outline: 1px solid #b99e7d;
+  outline-offset: 3px;
+  background: #929d87;
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  letter-spacing: 4px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.submit-button:hover {
+  background: #777f6d;
+  transform: translateY(-2px);
+}
+
+.thank-you {
+  display: none;
+  text-align: center;
+  padding: 35px 10px;
+}
+
+.thank-you h2 {
+  font-family: 'Parisienne', cursive;
+  font-size: 52px;
+  font-weight: 400;
+}
+
+.thank-you p {
+  font-size: 11px;
+  line-height: 2;
+  margin-top: 12px;
+}
+
+.closing {
+  font-family: 'Parisienne', cursive;
+  font-size: 32px;
+  margin-top: 35px;
+}
+
+.heart {
+  font-size: 25px;
+  margin-top: 5px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 15px 10px;
+  }
+
+  .content {
+    padding: 50px 22px 35px;
+  }
+
+  .couple {
+    font-size: 17px;
+    letter-spacing: 2px;
+  }
+
+  .attendance {
+    grid-template-columns: 1fr;
+  }
+
+  .search-button {
+    padding: 0 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="invitation">
+
+  <div class="paper-left"></div>
+
+  <div class="leaves top-left">🌿</div>
+  <div class="leaves top-right">🌿</div>
+  <div class="leaves bottom-left">🌿</div>
+  <div class="leaves bottom-right">🌿</div>
+
+  <main class="content">
+
+    <div class="couple">PRINCESS & HU SHENG SHIH</div>
+
+    <div class="eyebrow">WE WOULD BE HONORED BY YOUR PRESENCE</div>
+
+    <h1>Kindly<br>Respond</h1>
+
+    <p class="subtitle">FEBRUARY 26, 2027</p>
+
+    <p class="message">
+      Your presence would make our celebration even more special.
+      Kindly let us know if you will be joining us as we begin
+      this beautiful new chapter together.
+    </p>
+
+    <form class="rsvp-form" id="rsvpForm">
+
+      <div class="field">
+        <label for="guestSearch">Find Your Invitation</label>
+
+        <p class="search-note">
+          Please search your name or surname to find your invitation.
+          Add all invited guests who will be included in this response.
+        </p>
+
+        <div class="search-row">
+          <input
+            type="text"
+            id="guestSearch"
+            placeholder="Search name or surname..."
+            autocomplete="off"
+          >
+
+          <button type="button" class="search-button" id="searchButton">
+            SEARCH
+          </button>
+        </div>
+
+        <div class="suggestions" id="suggestions"></div>
+      </div>
+
+      <div class="guest-list-section" id="guestListSection">
+
+        <div class="guest-list-title">Your Guest List</div>
+
+        <p class="guest-list-note">
+          Please check the names before submitting your RSVP.
+        </p>
+
+        <div id="guestList"></div>
+
+        <div class="guest-total" id="guestTotal">
+          0 GUESTS ADDED
+        </div>
+
+      </div>
+
+      <div id="rsvpFields">
+
+        <div class="field">
+          <label>Will these guests be attending?</label>
+
+          <div class="attendance">
+
+            <label>
+              <input type="radio" name="attendance" value="Accept" required>
+              JOYFULLY ACCEPTS
+            </label>
+
+            <label>
+              <input type="radio" name="attendance" value="Decline">
+              REGRETFULLY DECLINES
+            </label>
+
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="guestMessage">Message for the Couple (Optional)</label>
+
+          <textarea
+            id="guestMessage"
+            placeholder="Write your message here..."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="submit-button">
+          SEND RSVP
+        </button>
+
+      </div>
+
+    </form>
+
+    <div class="thank-you" id="thankYou">
+
+      <h2>Thank You!</h2>
+
+      <p id="thankYouMessage">
+        Your response means so much to us.
+        We look forward to celebrating this special day with you.
+      </p>
+
+      <div class="heart">♡</div>
+
+    </div>
+
+    <div class="closing">With love, Princess & Hu Sheng Shih</div>
+
+    <div class="heart">♡</div>
+
+  </main>
+</div>
+
+<script type="module">
+import {
+  db,
+  collection,
+  getDocs
+} from "./firebase.js";
+
+let guestListData = [];
+let selectedGuests = [];
+let MAX_GUESTS = 0;
+
+const searchInput = document.getElementById("guestSearch");
+const searchButton = document.getElementById("searchButton");
+const suggestions = document.getElementById("suggestions");
+const guestListContainer = document.getElementById("guestList");
+const guestListSection = document.getElementById("guestListSection");
+const guestTotal = document.getElementById("guestTotal");
+const rsvpFields = document.getElementById("rsvpFields");
+const form = document.getElementById("rsvpForm");
+
+// LOAD GUESTS FROM FIREBASE
+
+async function loadGuests() {
+  try {
+    searchButton.disabled = true;
+    searchButton.textContent = "LOADING";
+
+    const snapshot = await getDocs(collection(db, "guestDirectory"));
+
+    guestListData = snapshot.docs
+      .map(doc => doc.data().name)
+      .filter(name => typeof name === "string" && name.trim() !== "")
+      .sort((a, b) => a.localeCompare(b));
+
+    MAX_GUESTS = guestListData.length;
+
+    searchButton.disabled = false;
+    searchButton.textContent = "SEARCH";
+
+    if (MAX_GUESTS === 0) {
+      suggestions.style.display = "block";
+      suggestions.innerHTML =
+        '<div class="no-result">No invited guests are currently available.</div>';
+    }
+
+  } catch (error) {
+    console.error("Error loading guests:", error);
+
+    searchButton.disabled = true;
+    searchButton.textContent = "ERROR";
+
+    suggestions.style.display = "block";
+    suggestions.innerHTML =
+      '<div class="no-result">Unable to load guest names. Please refresh the page.</div>';
+  }
+}
+
+// SEARCH GUESTS
+
+function searchGuests() {
+  const query = searchInput.value.trim().toLowerCase();
+
+  suggestions.innerHTML = "";
+  suggestions.style.display = "block";
+
+  if (!query) {
+    suggestions.innerHTML =
+      '<div class="no-result">Please enter a name or surname to search.</div>';
+    return;
+  }
+
+  const matches = guestListData.filter(name =>
+    name.toLowerCase().includes(query)
+  );
+
+  if (matches.length === 0) {
+    suggestions.innerHTML =
+      '<div class="no-result">No invited guest found. Please check the spelling of the name.</div>';
+    return;
+  }
+
+  matches.forEach(name => {
+    const item = document.createElement("div");
+    item.className = "suggestion-item";
+
+    const nameText = document.createElement("span");
+    nameText.textContent = name;
+
+    const addButton = document.createElement("button");
+    addButton.type = "button";
+    addButton.className = "add-button";
+
+    const alreadyAdded = selectedGuests.includes(name);
+
+    addButton.textContent = alreadyAdded ? "ADDED" : "+ ADD";
+    addButton.disabled = alreadyAdded;
+
+    addButton.addEventListener("click", function() {
+      addGuest(name);
+    });
+
+    item.appendChild(nameText);
+    item.appendChild(addButton);
+
+    suggestions.appendChild(item);
+  });
+}
+
+searchButton.addEventListener("click", searchGuests);
+
+searchInput.addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    searchGuests();
+  }
+});
+
+// ADD GUEST
+
+function addGuest(name) {
+  if (selectedGuests.includes(name)) return;
+
+  if (selectedGuests.length >= MAX_GUESTS) {
+    alert("You have reached the maximum number of invited guests.");
+    return;
+  }
+
+  selectedGuests.push(name);
+
+  renderGuestList();
+  searchGuests();
+}
+
+// REMOVE GUEST
+
+function removeGuest(name) {
+  selectedGuests = selectedGuests.filter(guest => guest !== name);
+
+  renderGuestList();
+  searchGuests();
+}
+
+// DISPLAY SELECTED GUESTS
+
+function renderGuestList() {
+  guestListContainer.innerHTML = "";
+
+  if (selectedGuests.length === 0) {
+    guestListSection.style.display = "none";
+    rsvpFields.style.display = "none";
+    return;
+  }
+
+  guestListSection.style.display = "block";
+  rsvpFields.style.display = "block";
+
+  selectedGuests.forEach(name => {
+    const entry = document.createElement("div");
+    entry.className = "guest-entry";
+
+    const nameText = document.createElement("span");
+    nameText.textContent = name;
+
+    const removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.className = "remove-button";
+    removeButton.textContent = "REMOVE";
+
+    removeButton.addEventListener("click", function() {
+      removeGuest(name);
+    });
+
+    entry.appendChild(nameText);
+    entry.appendChild(removeButton);
+
+    guestListContainer.appendChild(entry);
+  });
+
+  guestTotal.textContent =
+    selectedGuests.length +
+    (selectedGuests.length === 1 ? " GUEST ADDED" : " GUESTS ADDED");
+}
+
+// TEMPORARY SUBMIT PREVIEW
+// Actual Firebase RSVP saving will be connected separately.
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  if (selectedGuests.length === 0) {
+    alert("Please add at least one invited guest.");
+    return;
+  }
+
+  const attendance = document.querySelector(
+    'input[name="attendance"]:checked'
+  );
+
+  if (!attendance) {
+    alert("Please select the attendance status.");
+    return;
+  }
+
+  const response = {
+    guests: [...selectedGuests],
+    attendance: attendance.value,
+    totalGuests: selectedGuests.length,
+    message: document.getElementById("guestMessage").value
+  };
+
+  console.log("RSVP RESPONSE:", response);
+
+  form.style.display = "none";
+
+  const thankYou = document.getElementById("thankYou");
+  const thankYouMessage = document.getElementById("thankYouMessage");
+
+  const names = selectedGuests.join(", ");
+
+  if (attendance.value === "Accept") {
+    thankYouMessage.textContent =
+      "Thank you! Your RSVP has been received for " +
+      names + ". We look forward to celebrating with you.";
+  } else {
+    thankYouMessage.textContent =
+      "Thank you for letting us know. We will miss " +
+      names + " on our special day.";
+  }
+
+  thankYou.style.display = "block";
+
+  window.parent.postMessage("STOP_MUSIC", window.location.origin);
+});
+
+// LOAD GUESTS WHEN PAGE OPENS
+
+loadGuests();
+
+</script>
+
+</body>
+</html>

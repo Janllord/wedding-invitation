@@ -1,0 +1,525 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Guest Information | Princess & Hu Sheng Shih</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 35px 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #deddda;
+      font-family: 'Montserrat', sans-serif;
+      color: #55534f;
+    }
+
+    .invitation {
+      width: 100%;
+      max-width: 620px;
+      min-height: 850px;
+      background: #f4f0e7;
+      overflow: hidden;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.13);
+    }
+
+    /* PHOTO: BLUR TO CLEAR + CINEMATIC ZOOM */
+
+    .photo-section {
+      width: 100%;
+      height: 440px;
+      overflow: hidden;
+      position: relative;
+      animation: photoEntrance 1.8s ease-out both;
+    }
+
+    .photo-section img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      animation: cinematicZoom 7s ease-out both;
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.02),
+        rgba(0,0,0,0.12)
+      );
+      pointer-events: none;
+    }
+
+    /* PAPER */
+
+    .paper {
+      position: relative;
+      min-height: 430px;
+      margin-top: -22px;
+      padding: 25px 25px 35px;
+      background: #f5f1e8;
+      text-align: center;
+      z-index: 2;
+      border-radius: 18px 18px 0 0;
+      animation: paperSlide 1.4s cubic-bezier(.2,.7,.2,1) both;
+      animation-delay: .7s;
+    }
+
+    /* GREENERY */
+
+    .leaf {
+      position: absolute;
+      width: 105px;
+      height: 130px;
+      opacity: .75;
+      pointer-events: none;
+      animation: leafReveal 2s ease-out 1.2s both;
+    }
+
+    .leaf-left {
+      top: 15px;
+      left: 0;
+    }
+
+    .leaf-right {
+      top: 15px;
+      right: 0;
+      transform: scaleX(-1);
+    }
+
+    .leaf svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* EYEBROW */
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #8a8b7c;
+      margin-top: 5px;
+      margin-bottom: 13px;
+      animation: fadeOnly 1.2s ease-out 1.4s both;
+    }
+
+    /* HEADING: LETTER SPACING REVEAL */
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 43px;
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: 9px;
+      color: #64675b;
+      margin-bottom: 18px;
+      opacity: 0;
+      animation: titleSpread 1.6s cubic-bezier(.2,.7,.2,1) 1.5s forwards;
+    }
+
+    /* MESSAGE: SLIDE FROM LEFT */
+
+    .message {
+      max-width: 430px;
+      margin: 0 auto;
+      font-size: 14px;
+      line-height: 1.9;
+      font-weight: 300;
+      color: #77766e;
+      opacity: 0;
+      animation: messageSlide 1.2s ease-out 2s forwards;
+    }
+
+    /* DECORATIVE DIVIDER */
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 22px auto;
+      animation: fadeOnly 1.2s ease-out 2.3s both;
+    }
+
+    .divider-line {
+      width: 65px;
+      height: 1px;
+      background: #b9b9a9;
+      transform: scaleX(0);
+      animation: lineExpand 1.2s ease-out 2.4s forwards;
+    }
+
+    .divider-flower {
+      color: #929583;
+      font-size: 17px;
+    }
+
+    /* REMINDER PANEL */
+
+    .reminder-panel {
+      max-width: 470px;
+      margin: 0 auto;
+      padding: 15px 18px 18px;
+      border: 1px solid transparent;
+      position: relative;
+      animation: panelReveal 1.5s ease-out 2.6s both;
+    }
+
+    .reminder-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid #b9b9a9;
+      transform: scale(.94);
+      opacity: 0;
+      animation: frameDraw 1.4s ease-out 2.8s forwards;
+    }
+
+    .reminder-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #929583;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 500;
+      color: #64675b;
+      margin-bottom: 10px;
+    }
+
+    .reminder-text {
+      max-width: 440px;
+      margin: 0 auto;
+      font-size: 13px;
+      line-height: 1.8;
+      font-weight: 300;
+      color: #77766e;
+    }
+
+    /* CLOSING */
+
+    .thank-you {
+      margin-top: 15px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-style: italic;
+      color: #858777;
+      opacity: 0;
+      animation: closingReveal 1.5s ease-out 3.3s forwards;
+    }
+
+    /* NEXT PAGE BUTTON */
+
+    .back-button {
+      display: inline-block;
+      margin-top: 22px;
+      padding: 12px 30px;
+      border: 1px solid #999b8b;
+      color: #686b5f;
+      text-decoration: none;
+      font-size: 9px;
+      letter-spacing: 3px;
+      position: relative;
+      overflow: hidden;
+      transition: color .4s ease;
+      opacity: 0;
+      animation: fadeOnly 1s ease-out 3.7s both;
+    }
+
+    .back-button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #777b6d;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .45s ease;
+      z-index: -1;
+    }
+
+    .back-button:hover {
+      color: white;
+    }
+
+    .back-button:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* ANIMATION KEYFRAMES */
+
+    @keyframes photoEntrance {
+      from {
+        opacity: 0;
+        filter: brightness(.7);
+      }
+      to {
+        opacity: 1;
+        filter: brightness(1);
+      }
+    }
+
+    @keyframes cinematicZoom {
+      from {
+        transform: scale(1.12);
+        filter: blur(5px);
+      }
+      to {
+        transform: scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes paperSlide {
+      from {
+        opacity: 0;
+        transform: translateY(45px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes leafReveal {
+      from {
+        opacity: 0;
+        filter: blur(4px);
+      }
+      to {
+        opacity: .75;
+        filter: blur(0);
+      }
+    }
+
+    @keyframes fadeOnly {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes titleSpread {
+      from {
+        opacity: 0;
+        letter-spacing: 9px;
+        transform: scale(.96);
+      }
+      to {
+        opacity: 1;
+        letter-spacing: 1px;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes messageSlide {
+      from {
+        opacity: 0;
+        transform: translateX(-35px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes lineExpand {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes panelReveal {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes frameDraw {
+      from {
+        opacity: 0;
+        transform: scale(.94);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes closingReveal {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+        letter-spacing: 2px;
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 0;
+      }
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+      body {
+        padding: 15px 10px;
+      }
+
+      .invitation {
+        min-height: 720px;
+      }
+
+      .photo-section {
+        height: 330px;
+      }
+
+      .paper {
+        min-height: 400px;
+        padding: 22px 15px 30px;
+      }
+
+      .leaf {
+        width: 75px;
+        height: 100px;
+      }
+
+      h1 {
+        font-size: clamp(28px, 8vw, 35px);
+        letter-spacing: 1px;
+      }
+
+      .message {
+        font-size: 13px;
+        line-height: 1.8;
+        max-width: 330px;
+      }
+
+      .divider {
+        margin: 18px auto;
+      }
+
+      h2 {
+        font-size: 29px;
+      }
+
+      .reminder-panel {
+        padding: 13px 12px 15px;
+      }
+
+      .reminder-text {
+        font-size: 12px;
+        line-height: 1.7;
+      }
+
+      .thank-you {
+        font-size: 18px;
+      }
+
+      .back-button {
+        margin-top: 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="invitation">
+
+    <section class="photo-section">
+      <img src="images/page2.jpeg" alt="Princess and Hu Sheng Shih">
+      <div class="photo-overlay"></div>
+    </section>
+
+    <section class="paper">
+
+      <div class="leaf leaf-left">
+        <svg viewBox="0 0 120 150" fill="none">
+          <path d="M5 145 C35 110 55 65 100 10" stroke="#929985" stroke-width="1.5"/>
+          <path d="M30 105 C8 95 5 75 10 65 C28 68 38 84 30 105Z" fill="#aab09c"/>
+          <path d="M48 78 C28 55 35 38 45 30 C62 45 62 63 48 78Z" fill="#929c87"/>
+          <path d="M68 50 C60 28 73 15 85 12 C95 30 87 44 68 50Z" fill="#aab09c"/>
+        </svg>
+      </div>
+
+      <div class="leaf leaf-right">
+        <svg viewBox="0 0 120 150" fill="none">
+          <path d="M5 145 C35 110 55 65 100 10" stroke="#929985" stroke-width="1.5"/>
+          <path d="M30 105 C8 95 5 75 10 65 C28 68 38 84 30 105Z" fill="#aab09c"/>
+          <path d="M48 78 C28 55 35 38 45 30 C62 45 62 63 48 78Z" fill="#929c87"/>
+          <path d="M68 50 C60 28 73 15 85 12 C95 30 87 44 68 50Z" fill="#aab09c"/>
+        </svg>
+      </div>
+
+      <p class="eyebrow">A little note for our guests</p>
+
+      <h1>WE SAVED YOU A SEAT</h1>
+
+      <p class="message">
+        Your presence would mean so much to us.
+        Please confirm your attendance by the RSVP deadline.
+      </p>
+
+      <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-flower">✿</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <div class="reminder-panel">
+        <p class="reminder-label">A Gentle Reminder</p>
+
+        <h2>IMPORTANT REMINDERS</h2>
+
+        <p class="reminder-text">
+          This invitation is exclusively reserved for the invited
+          guest(s) indicated in your invitation. We kindly request
+          that you confirm only the number of seats allocated to you.
+        </p>
+      </div>
+
+      <p class="thank-you">Thank you for understanding!</p>
+
+      <a href="story.html" class="back-button">NEXT PAGE</a>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

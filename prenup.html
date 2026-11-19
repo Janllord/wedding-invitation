@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Princess & Hu Sheng Shih | Prenup Memories</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&family=Parisienne&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: #deddda;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px 15px;
+  color: #625044;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.invitation {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  min-height: 900px;
+  background: #faf8f2;
+  overflow: hidden;
+  box-shadow: 0 15px 45px rgba(0,0,0,0.13);
+  animation: fadeIn 1.2s ease;
+}
+
+.paper-left {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 52%;
+  background: radial-gradient(#e9e2d7 0.7px, transparent 0.7px);
+  background-size: 8px 8px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.leaves {
+  position: absolute;
+  font-size: 58px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.top-left {
+  top: 5px;
+  left: 5px;
+  transform: rotate(-35deg);
+}
+
+.top-right {
+  top: 5px;
+  right: 5px;
+  transform: rotate(35deg);
+}
+
+.bottom-left {
+  bottom: 5px;
+  left: 5px;
+  transform: rotate(145deg);
+}
+
+.bottom-right {
+  bottom: 5px;
+  right: 5px;
+  transform: rotate(-145deg);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 55px 35px 40px;
+  text-align: center;
+}
+
+.couple {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  letter-spacing: 4px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-family: 'Parisienne', cursive;
+  font-size: clamp(48px, 9vw, 76px);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  letter-spacing: 3px;
+  margin-top: 12px;
+  margin-bottom: 35px;
+}
+
+.intro {
+  max-width: 420px;
+  margin: 0 auto 35px;
+  font-size: 11px;
+  line-height: 2;
+  letter-spacing: 1px;
+}
+
+/* PHOTO GALLERY */
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 18px;
+  max-width: 490px;
+  margin: 0 auto;
+}
+
+.photo-card {
+  text-align: center;
+  animation: rise 1s ease both;
+}
+
+.photo-card:nth-child(2) { animation-delay: .12s; }
+.photo-card:nth-child(3) { animation-delay: .24s; }
+.photo-card:nth-child(4) { animation-delay: .36s; }
+.photo-card:nth-child(5) { animation-delay: .48s; }
+.photo-card:nth-child(6) { animation-delay: .60s; }
+
+.photo-frame {
+  width: 100%;
+  height: 205px;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid #d7c5a9;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.09);
+  overflow: hidden;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s ease;
+}
+
+.photo-card:hover img {
+  transform: scale(1.07);
+}
+
+.caption {
+  font-family: 'Parisienne', cursive;
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+/* CLOSING MESSAGE */
+
+.closing {
+  font-family: 'Parisienne', cursive;
+  font-size: 32px;
+  margin-top: 38px;
+}
+
+.heart {
+  font-size: 25px;
+  margin-top: 5px;
+}
+
+/* NAVIGATION */
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin-top: 35px;
+}
+
+.nav-button {
+  display: inline-block;
+  min-width: 125px;
+  padding: 12px 20px;
+  border: 1px solid #b99e7d;
+  outline: 1px solid #b99e7d;
+  outline-offset: 3px;
+  background: #929d87;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  letter-spacing: 3px;
+  transition: 0.3s ease;
+}
+
+.nav-button:hover {
+  background: #777f6d;
+  transform: translateY(-3px);
+}
+
+.nav-divider {
+  color: #b99e7d;
+  font-size: 20px;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+  body {
+    padding: 15px 10px;
+  }
+
+  .content {
+    padding: 50px 20px 35px;
+  }
+
+  .couple {
+    font-size: 17px;
+    letter-spacing: 2px;
+  }
+
+  .gallery {
+    gap: 18px 12px;
+  }
+
+  .photo-frame {
+    height: 155px;
+    padding: 4px;
+  }
+
+  .caption {
+    font-size: 21px;
+  }
+
+  .navigation {
+    gap: 15px;
+  }
+
+  .nav-button {
+    min-width: 105px;
+    padding: 10px 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="invitation">
+
+  <div class="paper-left"></div>
+
+  <div class="leaves top-left">🌿</div>
+  <div class="leaves top-right">🌿</div>
+  <div class="leaves bottom-left">🌿</div>
+  <div class="leaves bottom-right">🌿</div>
+
+  <main class="content">
+
+    <div class="couple">PRINCESS & HU SHENG SHIH</div>
+
+    <div class="eyebrow">A COLLECTION OF OUR FAVORITE MOMENTS</div>
+
+    <h1>Our Prenup<br>Memories</h1>
+
+    <p class="subtitle">LITTLE MOMENTS, FOREVER MEMORIES</p>
+
+    <p class="intro">
+      Every smile, every laugh, and every moment together
+      tells a story worth keeping forever.
+      Here are a few memories from our journey to forever.
+    </p>
+
+    <section class="gallery">
+
+      <div class="photo-card">
+        <div class="photo-frame">
+          <img src="images/prenup-1.jpg" alt="Prenup memory 1">
+        </div>
+        <div class="caption">A Beautiful Beginning</div>
+      </div>
+
+      <div class="photo-card">
+        <div class="photo-frame">
+          <img src="images/prenup-2.jpg" alt="Prenup memory 2">
+        </div>
+        <div class="caption">Side by Side</div>
+      </div>
+
+      <div class="photo-card">
+        <div class="photo-frame">
+          <img src="images/prenup-3.jpg" alt="Prenup memory 3">
+        </div>
+        <div class="caption">Endless Smiles</div>
+      </div>
+
+      <div class="photo-card">
+        <div class="photo-frame">
+          <img src="images/prenup-4.jpg" alt="Prenup memory 4">
+        </div>
+        <div class="caption">Our Happy Place</div>
+      </div>
+
+      <div class="photo-card">
+        <div class="photo-frame">
+          <img src="images/prenup-5.jpg" alt="Prenup memory 5">
+        </div>
+        <div class="caption">With You, Always</div>
+      </div>
+
+      <div class="photo-card">
+        <div class="photo-frame">
+          <img src="images/prenup-6.jpg" alt="Prenup memory 6">
+        </div>
+        <div class="caption">Forever Starts Here</div>
+      </div>
+
+    </section>
+
+    <div class="closing">
+      And this is only the beginning...
+    </div>
+
+    <div class="heart">♡</div>
+
+    <nav class="navigation">
+      <a href="./details.html" class="nav-button">BACK</a>
+      <span class="nav-divider">✦</span>
+      <a href="./rsvp.html" class="nav-button">NEXT</a>
+    </nav>
+
+  </main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Princess & Hu Sheng Shih | Wedding Colors</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&family=Parisienne&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  padding: 35px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #deddda;
+  font-family: 'Montserrat', sans-serif;
+  color: #55514b;
+}
+
+.invitation {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  height: 850px;
+  background: #faf8f2;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  animation: fadeIn 1.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.paper-left {
+  position: absolute;
+  inset: 0;
+  width: 52%;
+  background-image: radial-gradient(#d8d0c3 0.7px, transparent 0.7px);
+  background-size: 7px 7px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.leaves {
+  position: absolute;
+  font-size: 55px;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.leaves.top-left {
+  top: 5px;
+  left: 8px;
+  transform: rotate(-35deg);
+}
+
+.leaves.bottom-right {
+  bottom: 5px;
+  right: 8px;
+  transform: rotate(145deg);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+  padding: 40px 42px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.couple {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 23px;
+  letter-spacing: 4px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.eyebrow {
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #999084;
+  margin-bottom: 9px;
+}
+
+.heading {
+  font-family: 'Parisienne', cursive;
+  font-size: 43px;
+  font-weight: 400;
+  color: #B98278;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 10px;
+  letter-spacing: 2px;
+  line-height: 1.7;
+  color: #888176;
+  margin-bottom: 18px;
+}
+
+/* WEDDING COLOR PALETTE */
+
+.palette {
+  width: 100%;
+  max-width: 440px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 22px;
+  margin-bottom: 16px;
+}
+
+.color-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* RECTANGULAR IMAGE BOX */
+
+.swatch {
+  width: 100%;
+  height: 78px;
+  border: 5px solid #fff;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.swatch img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* SOLID COLOR CIRCLE */
+
+.color-circle {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  margin-top: 6px;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.dusty-blue {
+  background: #9AAFC2;
+}
+
+.soft-navy {
+  background: #71829E;
+}
+
+.rose-gold {
+  background: #B98278;
+}
+
+.champagne-blush {
+  background: #E8D1C5;
+}
+
+/* COLOR NAME UNDER CIRCLE */
+
+.color-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  color: #625e56;
+  margin-top: 3px;
+}
+
+.note {
+  width: 100%;
+  max-width: 440px;
+  border-top: 1px solid #d8d0c3;
+  border-bottom: 1px solid #d8d0c3;
+  padding: 13px 8px;
+  margin-bottom: 15px;
+}
+
+.note-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  color: #B98278;
+}
+
+.note p {
+  font-size: 9px;
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+  color: #777168;
+}
+
+.closing {
+  font-family: 'Parisienne', cursive;
+  font-size: 25px;
+  color: #71829E;
+  margin-bottom: 12px;
+}
+
+.navigation {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.navigation a {
+  text-decoration: none;
+  color: #777168;
+  border: 1px solid #B98278;
+  padding: 10px 18px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  transition: 0.3s ease;
+}
+
+.navigation a:hover {
+  background: #1B2942;
+  border-color: #1B2942;
+  color: white;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 15px 10px;
+  }
+
+  .invitation {
+    height: 720px;
+  }
+
+  .content {
+    padding: 32px 22px 17px;
+  }
+
+  .couple {
+    font-size: 19px;
+    letter-spacing: 3px;
+  }
+
+  .heading {
+    font-size: 36px;
+  }
+
+  .subtitle {
+    font-size: 9px;
+    margin-bottom: 13px;
+  }
+
+  .palette {
+    gap: 9px 14px;
+    margin-bottom: 13px;
+  }
+
+  .swatch {
+    height: 68px;
+  }
+
+  .color-circle {
+    width: 38px;
+    height: 38px;
+    margin-top: 5px;
+  }
+
+  .color-name {
+    font-size: 14px;
+  }
+
+  .note {
+    padding: 10px 7px;
+    margin-bottom: 10px;
+  }
+
+  .note-title {
+    font-size: 17px;
+  }
+
+  .note p {
+    font-size: 8px;
+  }
+
+  .closing {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .navigation {
+    padding-top: 8px;
+  }
+
+  .navigation a {
+    min-width: 105px;
+    text-align: center;
+    padding: 10px 12px;
+    font-size: 8px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="invitation">
+
+  <div class="paper-left"></div>
+
+  <div class="leaves top-left">🌿</div>
+  <div class="leaves bottom-right">🌿</div>
+
+  <main class="content">
+
+    <div class="couple">PRINCESS & HU SHENG SHIH</div>
+
+    <div class="eyebrow">THE WEDDING CELEBRATION</div>
+
+    <h1 class="heading">Our Wedding Colors</h1>
+
+    <p class="subtitle">
+      A PALETTE INSPIRED BY LOVE, ELEGANCE & NATURE
+    </p>
+
+    <section class="palette">
+
+      <!-- DUSTY BLUE -->
+      <div class="color-item">
+        <div class="swatch">
+          <img src="images/dusty-blue.jpg" alt="Dusty Blue">
+        </div>
+        <div class="color-circle dusty-blue"></div>
+        <div class="color-name">Dusty Blue</div>
+      </div>
+
+      <!-- SOFT NAVY -->
+      <div class="color-item">
+        <div class="swatch">
+          <img src="images/soft-navy.jpg" alt="Soft Navy">
+        </div>
+        <div class="color-circle soft-navy"></div>
+        <div class="color-name">Soft Navy</div>
+      </div>
+
+      <!-- ROSE GOLD -->
+      <div class="color-item">
+        <div class="swatch">
+          <img src="images/rose-gold.jpg" alt="Rose Gold">
+        </div>
+        <div class="color-circle rose-gold"></div>
+        <div class="color-name">Rose Gold</div>
+      </div>
+
+      <!-- CHAMPAGNE BLUSH -->
+      <div class="color-item">
+        <div class="swatch">
+          <img src="images/champagne-blush.jpg" alt="Champagne Blush">
+        </div>
+        <div class="color-circle champagne-blush"></div>
+        <div class="color-name">Champagne Blush</div>
+      </div>
+
+    </section>
+
+    <section class="note">
+      <h2 class="note-title">A Note to Our Guests</h2>
+      <p>
+        We would be delighted if you could wear any of our chosen
+        wedding colors as we celebrate this special day together.
+        Your presence and love mean the most to us.
+      </p>
+    </section>
+
+    <div class="closing">Let's celebrate in harmony!</div>
+
+    <nav class="navigation">
+      <a href="./entourage.html">← BACK</a>
+      <a href="./prenup.html">NEXT →</a>
+    </nav>
+
+  </main>
+</div>
+
+</body>
+</html>

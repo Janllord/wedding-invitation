@@ -1,0 +1,641 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Our Story | Princess & Hu Sheng Shih</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 25px 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #deddda;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .invitation {
+      width: 100%;
+      max-width: 620px;
+      min-height: 850px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.12);
+    }
+
+    /* TOP SECTION */
+
+    .top-section {
+      height: 330px;
+      background: #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* CIRCULAR PHOTO */
+
+    .couple-photo {
+      width: 250px;
+      height: 250px;
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      padding: 5px;
+      border: 1px solid #a5a28f;
+      background: #fff;
+      z-index: 3;
+      animation: circleReveal 1.8s cubic-bezier(.2,.7,.2,1) both;
+    }
+
+    .couple-photo::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border: 1px solid #b9b5a5;
+      border-radius: 50%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .couple-photo img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      animation: photoZoom 8s ease-out both;
+    }
+
+    /* TOP GREENERY */
+
+    .top-leaves {
+      position: absolute;
+      top: 0;
+      width: 145px;
+      height: 220px;
+      z-index: 2;
+      pointer-events: none;
+      animation: leavesAppear 1.8s ease-out .4s both;
+    }
+
+    .top-left { left: -5px; }
+
+    .top-right {
+      right: -5px;
+      transform: scaleX(-1);
+    }
+
+    .top-leaves svg,
+    .bottom-leaves svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* TORN PAPER */
+
+    .paper {
+      min-height: 555px;
+      margin-top: -15px;
+      position: relative;
+      z-index: 4;
+      padding: 48px 38px 35px;
+      text-align: center;
+      background-color: #eee9dc;
+      background-image:
+        radial-gradient(rgba(105,95,75,.10) .7px, transparent .8px),
+        radial-gradient(rgba(255,255,255,.55) .8px, transparent 1px),
+        linear-gradient(135deg, #f1ede2, #eae5d8);
+      background-size: 5px 5px, 8px 8px, 100% 100%;
+
+      clip-path: polygon(
+        0% 4%, 3% 3.5%, 6% 4.2%, 9% 3.4%,
+        12% 4.5%, 15% 3.8%, 18% 4.2%,
+        21% 3.5%, 24% 4.4%, 27% 3.7%,
+        30% 4.5%, 33% 3.5%, 36% 4.2%,
+        39% 3.6%, 42% 4.4%, 45% 3.5%,
+        48% 4.3%, 51% 3.6%, 54% 4.4%,
+        57% 3.6%, 60% 4.3%, 63% 3.5%,
+        66% 4.5%, 69% 3.6%, 72% 4.3%,
+        75% 3.6%, 78% 4.4%, 81% 3.5%,
+        84% 4.3%, 87% 3.6%, 90% 4.5%,
+        93% 3.7%, 96% 4.3%, 100% 3.8%,
+        100% 100%, 0% 100%
+      );
+
+      animation: paperUnfold 1.8s ease-out .6s both;
+    }
+
+    /* STORY TITLE */
+
+    .eyebrow {
+      font-size: 9px;
+      letter-spacing: 4px;
+      color: #777969;
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: textAppear 1.2s ease-out 1.4s forwards;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 500;
+      letter-spacing: 7px;
+      color: #292923;
+      margin-bottom: 17px;
+      opacity: 0;
+      animation: titleReveal 1.5s ease-out 1.6s forwards;
+    }
+
+    .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      font-style: italic;
+      color: #777969;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: textAppear 1.3s ease-out 1.9s forwards;
+    }
+
+    /* LOVE STORY */
+
+    .story-text {
+      max-width: 465px;
+      margin: 0 auto;
+      font-size: 11px;
+      line-height: 1.9;
+      letter-spacing: .4px;
+      font-weight: 400;
+      color: #4c4a42;
+      text-align: center;
+    }
+
+    .story-text p {
+      margin-bottom: 13px;
+      opacity: 0;
+    }
+
+    .story-one {
+      animation: storyReveal 1.3s ease-out 2.1s forwards;
+    }
+
+    .story-two {
+      animation: storyReveal 1.3s ease-out 2.6s forwards;
+    }
+
+    .story-three {
+      animation: storyReveal 1.3s ease-out 3.1s forwards;
+    }
+
+    .story-ending {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: #777969;
+      margin-top: 16px;
+      opacity: 0;
+      animation: textAppear 1.5s ease-out 3.6s forwards;
+    }
+
+    /* BOTTOM GREENERY */
+
+    .bottom-leaves {
+      position: absolute;
+      bottom: 0;
+      width: 115px;
+      height: 155px;
+      z-index: 5;
+      pointer-events: none;
+      animation: leavesAppear 2s ease-out 2.3s both;
+    }
+
+    .bottom-left { left: -5px; }
+
+    .bottom-right {
+      right: -5px;
+      transform: scaleX(-1);
+    }
+
+    /* NAVIGATION */
+
+    .navigation {
+      position: relative;
+      z-index: 6;
+      margin: 25px auto 0;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      opacity: 0;
+      animation: textAppear 1.2s ease-out 4s forwards;
+    }
+
+    .navigation a {
+      color: #777969;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-decoration: none;
+      padding: 7px 0;
+      border-bottom: 1px solid transparent;
+      transition: .4s ease;
+    }
+
+    .navigation a:hover {
+      border-bottom-color: #777969;
+      letter-spacing: 4px;
+    }
+
+    /* ANIMATIONS */
+
+    @keyframes circleReveal {
+      from {
+        opacity: 0;
+        clip-path: circle(0%);
+        transform: translateX(-50%) scale(.85);
+      }
+      to {
+        opacity: 1;
+        clip-path: circle(50%);
+        transform: translateX(-50%) scale(1);
+      }
+    }
+
+    @keyframes photoZoom {
+      from {
+        transform: scale(1.12);
+        filter: blur(4px);
+      }
+      to {
+        transform: scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes leavesAppear {
+      from {
+        opacity: 0;
+        filter: blur(5px);
+      }
+      to {
+        opacity: 1;
+        filter: blur(0);
+      }
+    }
+
+    @keyframes paperUnfold {
+      from {
+        opacity: 0;
+        clip-path: inset(30% 0 0 0);
+      }
+      to {
+        opacity: 1;
+        clip-path: polygon(
+          0% 4%, 3% 3.5%, 6% 4.2%, 9% 3.4%,
+          12% 4.5%, 15% 3.8%, 18% 4.2%,
+          21% 3.5%, 24% 4.4%, 27% 3.7%,
+          30% 4.5%, 33% 3.5%, 36% 4.2%,
+          39% 3.6%, 42% 4.4%, 45% 3.5%,
+          48% 4.3%, 51% 3.6%, 54% 4.4%,
+          57% 3.6%, 60% 4.3%, 63% 3.5%,
+          66% 4.5%, 69% 3.6%, 72% 4.3%,
+          75% 3.6%, 78% 4.4%, 81% 3.5%,
+          84% 4.3%, 87% 3.6%, 90% 4.5%,
+          93% 3.7%, 96% 4.3%, 100% 3.8%,
+          100% 100%, 0% 100%
+        );
+      }
+    }
+
+    @keyframes titleReveal {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+        letter-spacing: 12px;
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 7px;
+      }
+    }
+
+    @keyframes textAppear {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes storyReveal {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(3px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px 8px;
+      }
+
+      .invitation {
+        min-height: 720px;
+      }
+
+      .top-section {
+        height: 275px;
+      }
+
+      .couple-photo {
+        width: 215px;
+        height: 215px;
+        top: 12px;
+      }
+
+      .top-leaves {
+        width: 105px;
+        height: 165px;
+      }
+
+      .paper {
+        min-height: 465px;
+        padding: 42px 20px 30px;
+      }
+
+      h1 {
+        font-size: 31px;
+        letter-spacing: 5px;
+        margin-bottom: 14px;
+      }
+
+      .subtitle {
+        font-size: 17px;
+        margin-bottom: 17px;
+      }
+
+      .story-text {
+        font-size: 10px;
+        line-height: 1.8;
+        letter-spacing: .2px;
+      }
+
+      .story-text p {
+        margin-bottom: 11px;
+      }
+
+      .story-ending {
+        font-size: 20px;
+      }
+
+      .bottom-leaves {
+        width: 85px;
+        height: 120px;
+      }
+
+      .navigation {
+        margin-top: 22px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="invitation">
+
+    <!-- TOP WHITE SECTION -->
+
+    <section class="top-section">
+
+      <div class="top-leaves top-left">
+        <svg viewBox="0 0 150 220" fill="none">
+          <path d="M-10 215 C35 155 55 75 115 0" stroke="#64785f" stroke-width="2"/>
+          <path d="M15 175 C-5 145 0 120 12 108 C37 127 34 151 15 175Z" fill="#8d9f82"/>
+          <path d="M32 145 C15 110 28 87 43 80 C61 110 52 132 32 145Z" fill="#b1b99e"/>
+          <path d="M53 105 C30 75 42 49 58 43 C78 68 70 91 53 105Z" fill="#778e72"/>
+          <path d="M78 65 C64 35 78 15 94 10 C110 34 99 55 78 65Z" fill="#a6b398"/>
+          <path d="M4 195 C-15 175 -10 154 0 145" stroke="#64785f" stroke-width="1.5"/>
+          <path d="M38 130 C15 125 8 104 12 91 C33 99 44 113 38 130Z" fill="#71866d"/>
+          <path d="M65 91 C45 72 52 49 64 40 C83 57 82 76 65 91Z" fill="#c1c5ad"/>
+          <path d="M92 45 C85 22 100 5 113 3 C124 24 111 39 92 45Z" fill="#7d9276"/>
+        </svg>
+      </div>
+
+      <div class="top-leaves top-right">
+        <svg viewBox="0 0 150 220" fill="none">
+          <path d="M-10 215 C35 155 55 75 115 0" stroke="#64785f" stroke-width="2"/>
+          <path d="M15 175 C-5 145 0 120 12 108 C37 127 34 151 15 175Z" fill="#8d9f82"/>
+          <path d="M32 145 C15 110 28 87 43 80 C61 110 52 132 32 145Z" fill="#b1b99e"/>
+          <path d="M53 105 C30 75 42 49 58 43 C78 68 70 91 53 105Z" fill="#778e72"/>
+          <path d="M78 65 C64 35 78 15 94 10 C110 34 99 55 78 65Z" fill="#a6b398"/>
+          <path d="M4 195 C-15 175 -10 154 0 145" stroke="#64785f" stroke-width="1.5"/>
+          <path d="M38 130 C15 125 8 104 12 91 C33 99 44 113 38 130Z" fill="#71866d"/>
+          <path d="M65 91 C45 72 52 49 64 40 C83 57 82 76 65 91Z" fill="#c1c5ad"/>
+          <path d="M92 45 C85 22 100 5 113 3 C124 24 111 39 92 45Z" fill="#7d9276"/>
+        </svg>
+      </div>
+
+      <div class="couple-photo">
+        <img src="images/page3.jpeg" alt="Princess and Hu Sheng Shih">
+      </div>
+
+    </section>
+
+    <!-- STORY PAPER -->
+
+    <section class="paper">
+
+      <p class="eyebrow">A journey written in love</p>
+
+      <h1>OUR STORY</h1>
+
+      <p class="subtitle">
+        From strangers, to best friends, to forever.
+      </p>
+
+      <div class="story-text">
+
+        <p class="story-one">
+          Sometimes, the most beautiful love stories begin in the
+          most unexpected ways.
+        </p>
+
+        <p class="story-two">
+          For two years, we kept crossing paths at the production
+          area. We would see each other from time to time, but we
+          were nothing more than strangers. Little did we know
+          that those ordinary encounters were quietly leading us
+          to a beautiful story we would someday call our own.
+        </p>
+
+        <p class="story-three">
+          One day, I went to his station to talk to a friend.
+          While we were having a conversation, Steven (Hu Sheng
+          Shih) came closer, and I asked him a simple question:
+          "Are you okay?" He simply said, "No."
+        </p>
+
+        <p class="story-three">
+          That simple answer made me curious. I wondered what
+          was going on with him and why he wasn't okay. Out of
+          curiosity, I asked our mutual friend for his social
+          media account. And just like that, a simple question
+          became the beginning of countless conversations.
+        </p>
+
+        <p class="story-three">
+          We started as strangers, slowly became friends, and
+          eventually became best friends. Through our everyday
+          conversations, shared moments, laughter, and time
+          spent together, I found myself slowly falling for him.
+        </p>
+
+        <p class="story-three">
+          One day, I asked him, "Don't you ever see yourself
+          having someone by your side?" His answer was a simple
+          "No." But I gathered the courage to tell him that I
+          was starting to like him. At that time, he wasn't
+          quite sure if he was falling for me too.
+        </p>
+
+        <p class="story-three">
+          Still, I never expected that the little feelings
+          growing inside me would eventually lead us somewhere
+          beautiful.
+        </p>
+
+        <p class="story-three">
+          Then came a moment when someone else was being
+          introduced to me. I talked to Steven and told him
+          that maybe we wouldn't get to spend as much time
+          together anymore because I was about to go on a
+          date with someone else.
+        </p>
+
+        <p class="story-three">
+          Perhaps the thought of losing what we had made him
+          realize something. He asked me, "Why don't we give
+          us a try?" And that was when our love story truly began.
+        </p>
+
+        <p class="story-three">
+          What started with a simple question, an unexpected
+          conversation, and a growing friendship slowly turned
+          into a love we never imagined we would have.
+        </p>
+
+        <p class="story-three">
+          From two strangers who used to cross paths at work,
+          to friends, to best friends, and eventually to lovers
+          — we have now spent four beautiful years choosing
+          each other, growing together, and creating memories
+          along the way.
+        </p>
+
+        <p class="story-three">
+          Looking back, it amazes us how life works. For two
+          years, we were just strangers passing by, never
+          knowing that one day, we would become each other's home.
+        </p>
+
+        <p class="story-three">
+          We didn't meet through a grand romantic gesture.
+          We met through an ordinary moment that became
+          extraordinary.
+        </p>
+
+        <p class="story-three">
+          And now, after four years of love, friendship,
+          patience, and countless memories, we are ready to
+          begin another chapter — not just as boyfriend and
+          girlfriend, but as husband and wife.
+        </p>
+
+        <p class="story-three">
+          Who would have thought that one simple question,
+          "Are you okay?" would lead us to a lifetime of "I do"?
+        </p>
+
+        <p class="story-three">
+          Our story began unexpectedly, but our forever will
+          be a choice we make every single day.
+        </p>
+
+      </div>
+
+      <p class="story-ending">
+        From strangers to best friends, from best friends to
+        lovers, and now, from lovers to forever.
+        <br><br>
+        With love,<br>
+        Princess & Steven (Hu Sheng Shih) 💚
+      </p>
+
+      <!-- BOTTOM GREENERY -->
+
+      <div class="bottom-leaves bottom-left">
+        <svg viewBox="0 0 120 160" fill="none">
+          <path d="M-5 160 C25 120 45 65 95 5" stroke="#657b61" stroke-width="1.8"/>
+          <path d="M17 125 C-5 111 0 90 10 78 C30 88 34 108 17 125Z" fill="#91a286"/>
+          <path d="M35 96 C15 70 28 49 42 42 C60 64 54 84 35 96Z" fill="#bac1a9"/>
+          <path d="M59 61 C45 37 58 17 72 12 C87 33 77 51 59 61Z" fill="#83977a"/>
+          <path d="M7 145 C-8 130 -5 115 2 108" stroke="#657b61" stroke-width="1"/>
+          <path d="M44 90 C22 88 13 68 17 55 C37 62 49 75 44 90Z" fill="#a5b49a"/>
+        </svg>
+      </div>
+
+      <div class="bottom-leaves bottom-right">
+        <svg viewBox="0 0 120 160" fill="none">
+          <path d="M-5 160 C25 120 45 65 95 5" stroke="#657b61" stroke-width="1.8"/>
+          <path d="M17 125 C-5 111 0 90 10 78 C30 88 34 108 17 125Z" fill="#91a286"/>
+          <path d="M35 96 C15 70 28 49 42 42 C60 64 54 84 35 96Z" fill="#bac1a9"/>
+          <path d="M59 61 C45 37 58 17 72 12 C87 33 77 51 59 61Z" fill="#83977a"/>
+          <path d="M7 145 C-8 130 -5 115 2 108" stroke="#657b61" stroke-width="1"/>
+          <path d="M44 90 C22 88 13 68 17 55 C37 62 49 75 44 90Z" fill="#a5b49a"/>
+        </svg>
+      </div>
+
+      <nav class="navigation">
+        <a href="page2.html">PREVIOUS</a>
+        <a href="entourage.html">NEXT PAGE</a>
+      </nav>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

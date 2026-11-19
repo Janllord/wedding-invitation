@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Guest Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f3ef;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      text-align: center;
+      color: #59483e;
+    }
+
+    input, button {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    input {
+      border: 1px solid #ccc;
+    }
+
+    button {
+      border: none;
+      background: #806b5b;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #665344;
+    }
+
+    #statusMessage {
+      margin-top: 18px;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Wedding Guest Upload</h2>
+
+    <form id="uploadForm">
+      <input
+        type="email"
+        id="email"
+        placeholder="Admin Email"
+        required
+      >
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Admin Password"
+        required
+      >
+
+      <button type="submit">Sync Guest Directory</button>
+    </form>
+
+    <p id="statusMessage">Ready to upload.</p>
+  </div>
+
+  <script type="module" src="./upload-guests.js"></script>
+
+</body>
+</html>

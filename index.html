@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Princess & Hu Sheng Shih | Wedding Invitation</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <video id="weddingMusic" loop playsinline preload="auto"
+    style="display:none;">
+    <source src="./Download.mp4" type="video/mp4">
+  </video>
+
+  <iframe id="invitationFrame" src="./cover.html"></iframe>
+
+  <script>
+    const frame = document.getElementById("invitationFrame");
+    const music = document.getElementById("weddingMusic");
+
+    const allowedPages = [
+      "cover.html",
+      "page2.html",
+      "story.html",
+      "entourage.html",
+      "details.html",
+      "prenup.html",
+      "rsvp.html"
+    ];
+
+    function updateMusicButton() {
+      if (!frame.contentWindow) return;
+
+      frame.contentWindow.postMessage(
+        music.paused ? "MUSIC_OFF" : "MUSIC_ON",
+        window.location.origin
+      );
+    }
+
+    music.addEventListener("play", updateMusicButton);
+    music.addEventListener("pause", updateMusicButton);
+
+    frame.addEventListener("load", () => {
+      updateMusicButton();
+
+      // Handle internal page links and force fresh page loading
+      try {
+        const iframeDocument = frame.contentDocument;
+
+        iframeDocument.addEventListener("click", (event) => {
+          const link = event.target.closest("a");
+
+          if (!link || !link.href) return;
+
+          const url = new URL(link.href);
+
+          if (url.origin !== window.location.origin) return;
+
+          const page = url.pathname.split("/").pop();
+
+          if (allowedPages.includes(page)) {
+            event.preventDefault();
+
+            url.searchParams.set("_v", Date.now());
+
+            frame.src = url.href;
+          }
+        });
+      } catch (error) {
+        console.error("Navigation error:", error);
+      }
+    });
+
+    window.addEventListener("message", async (event) => {
+      if (event.origin !== window.location.origin) return;
+
+      if (event.source !== frame.contentWindow) return;
+
+      if (event.data === "MUSIC_TOGGLE") {
+        try {
+          if (music.paused) {
+            await music.play();
+          } else {
+            music.pause();
+          }
+        } catch (error) {
+          console.error("Music playback error:", error);
+        }
+      }
+
+      if (event.data === "STOP_MUSIC") {
+        music.pause();
+        music.currentTime = 0;
+      }
+
+      if (event.data?.type === "NAVIGATE") {
+        const page = event.data.url;
+
+        if (allowedPages.includes(page)) {
+          frame.src = "./" + page + "?_v=" + Date.now();
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

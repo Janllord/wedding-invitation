@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Princess & Hu Sheng Shih | Wedding Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #deddda;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px 12px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* MAIN INVITATION */
+
+    .invitation {
+      width: 100%;
+      max-width: 620px;
+      min-height: 850px;
+      background: #f4f0e7;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+
+    /* COUPLE PHOTO */
+
+    .photo-section {
+      width: 100%;
+      height: 440px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .photo-section img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 45%;
+
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 94%,
+        96% 95%,
+        92% 94%,
+        88% 97%,
+        84% 95%,
+        80% 97%,
+        76% 94%,
+        72% 96%,
+        68% 94%,
+        64% 97%,
+        60% 95%,
+        56% 97%,
+        52% 94%,
+        48% 96%,
+        44% 94%,
+        40% 97%,
+        36% 95%,
+        32% 97%,
+        28% 94%,
+        24% 96%,
+        20% 94%,
+        16% 97%,
+        12% 95%,
+        8% 97%,
+        4% 94%,
+        0 96%
+      );
+    }
+
+    /* PAPER BACKGROUND */
+
+    .paper {
+      position: relative;
+      min-height: 430px;
+      margin-top: -22px;
+      padding: 25px 25px 45px;
+      text-align: center;
+      background-color: #f5f1e8;
+
+      background-image:
+        radial-gradient(
+          ellipse at 20% 20%,
+          rgba(255,255,255,0.65),
+          transparent 50%
+        ),
+        radial-gradient(
+          ellipse at 80% 80%,
+          rgba(220,215,202,0.25),
+          transparent 55%
+        );
+    }
+
+    /* COUPLE NAMES */
+
+    .couple-names {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(25px, 5.5vw, 43px);
+      font-weight: 400;
+      text-transform: uppercase;
+      color: #24241f;
+      letter-spacing: 0.5px;
+      line-height: 1.3;
+      margin-top: 5px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* DATE SECTION */
+
+    .date-section {
+      margin: 38px auto 0;
+      max-width: 420px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .month {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      letter-spacing: 7px;
+      color: #25251f;
+      margin-bottom: 5px;
+    }
+
+    .date-grid {
+      display: grid;
+      grid-template-columns: 1fr 100px 1fr;
+      align-items: center;
+      gap: 12px;
+      margin-top: 5px;
+    }
+
+    .date-side {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      letter-spacing: 4px;
+      color: #292923;
+    }
+
+    .date-side span {
+      display: block;
+      border-top: 2px solid #39382f;
+      border-bottom: 2px solid #39382f;
+      padding: 8px 0;
+      white-space: nowrap;
+    }
+
+    .day-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 65px;
+      font-style: italic;
+      color: #171713;
+      line-height: 1;
+    }
+
+    .year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px;
+      letter-spacing: 8px;
+      margin-top: 10px;
+      color: #25251f;
+    }
+
+    /* VENUE */
+
+    .venue {
+      margin-top: 30px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      letter-spacing: 5px;
+      line-height: 1.5;
+      color: #24241f;
+    }
+
+    .venue span {
+      display: block;
+    }
+
+    /* BOTANICAL DECORATIONS */
+
+    .leaves {
+      position: absolute;
+      width: 120px;
+      height: 145px;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.95;
+    }
+
+    .leaves.top-left {
+      top: -10px;
+      left: -5px;
+    }
+
+    .leaves.top-right {
+      top: -10px;
+      right: -5px;
+      transform: scaleX(-1);
+    }
+
+    .leaves.bottom-left {
+      bottom: -5px;
+      left: -5px;
+    }
+
+    .leaves.bottom-right {
+      bottom: -5px;
+      right: -5px;
+      transform: scaleX(-1);
+    }
+
+    /* OPEN INVITATION */
+
+    .open-button {
+      display: inline-block;
+      position: relative;
+      z-index: 3;
+      margin-top: 28px;
+      padding: 12px 30px;
+      border: 1px solid #7f8977;
+      color: #606d59;
+      text-decoration: none;
+      font-size: 9px;
+      letter-spacing: 3px;
+      transition: 0.3s ease;
+    }
+
+    .open-button:hover {
+      background: #7f8977;
+      color: white;
+    }
+
+    /* MUSIC BUTTON */
+
+    .music-toggle {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 9999;
+      padding: 12px 17px;
+      border: 1px solid #8a927f;
+      border-radius: 30px;
+      background: rgba(245, 241, 232, 0.96);
+      color: #606d59;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+      transition: all .3s ease;
+    }
+
+    .music-toggle:hover {
+      background: #7f8977;
+      color: white;
+    }
+
+    .music-toggle.playing {
+      background: #7f8977;
+      color: white;
+    }
+
+    /* LUXURY CINEMATIC ANIMATIONS */
+
+    .photo-section img {
+      animation: photoReveal 2s ease-out both;
+      transform-origin: center;
+    }
+
+    @keyframes photoReveal {
+      from {
+        opacity: 0;
+        transform: scale(1.07);
+        filter: brightness(0.75);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+        filter: brightness(1);
+      }
+    }
+
+    .paper {
+      animation: paperReveal 1.5s ease-out 0.4s both;
+    }
+
+    @keyframes paperReveal {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .couple-names,
+    .date-section,
+    .venue,
+    .open-button {
+      opacity: 0;
+      animation: textReveal 1.2s ease-out forwards;
+    }
+
+    .couple-names {
+      animation-delay: 1.1s;
+    }
+
+    .date-section {
+      animation-delay: 1.5s;
+    }
+
+    .venue {
+      animation-delay: 1.9s;
+    }
+
+    .open-button {
+      animation-delay: 2.3s;
+    }
+
+    @keyframes textReveal {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ACCESSIBILITY */
+
+    @media (prefers-reduced-motion: reduce) {
+      .photo-section img,
+      .paper,
+      .couple-names,
+      .date-section,
+      .venue,
+      .open-button {
+        animation: none;
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+    }
+
+    /* MOBILE RESPONSIVE */
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      .invitation {
+        min-height: 720px;
+      }
+
+      .photo-section {
+        height: 330px;
+      }
+
+      .paper {
+        padding: 25px 15px 40px;
+        min-height: 400px;
+      }
+
+      .couple-names {
+        font-size: clamp(22px, 6vw, 30px);
+      }
+
+      .date-section {
+        margin-top: 30px;
+      }
+
+      .date-grid {
+        grid-template-columns: 1fr 75px 1fr;
+        gap: 7px;
+      }
+
+      .date-side {
+        font-size: 13px;
+        letter-spacing: 2px;
+      }
+
+      .day-number {
+        font-size: 53px;
+      }
+
+      .month {
+        font-size: 17px;
+      }
+
+      .year {
+        font-size: 18px;
+      }
+
+      .venue {
+        font-size: 16px;
+        letter-spacing: 4px;
+      }
+
+      .leaves {
+        width: 85px;
+        height: 110px;
+      }
+
+      .music-toggle {
+        bottom: 14px;
+        right: 14px;
+        font-size: 8px;
+        padding: 10px 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="invitation">
+
+    <section class="photo-section">
+      <img
+        src="images/couple.jpeg"
+        alt="Princess and Hu Sheng Shih Wedding Photo"
+      >
+    </section>
+
+    <section class="paper">
+
+      <svg class="leaves top-left" viewBox="0 0 130 150" fill="none">
+        <path d="M5 5 C35 35 30 90 95 140" stroke="#61795D" stroke-width="2"/>
+        <path d="M20 25 C-2 5 0 45 29 48 C38 37 31 28 20 25Z" fill="#71896B"/>
+        <path d="M35 52 C65 25 80 60 49 72 C36 68 31 60 35 52Z" fill="#8FA184"/>
+        <path d="M54 83 C20 65 22 105 58 109 C70 98 65 88 54 83Z" fill="#657F60"/>
+        <path d="M73 110 C99 83 115 112 84 129 C72 126 68 118 73 110Z" fill="#9AAA91"/>
+        <path d="M10 10 C-5 35 5 60 20 70" stroke="#899D7C" stroke-width="1.5"/>
+      </svg>
+
+      <svg class="leaves top-right" viewBox="0 0 130 150" fill="none">
+        <path d="M5 5 C35 35 30 90 95 140" stroke="#61795D" stroke-width="2"/>
+        <path d="M20 25 C-2 5 0 45 29 48 C38 37 31 28 20 25Z" fill="#71896B"/>
+        <path d="M35 52 C65 25 80 60 49 72 C36 68 31 60 35 52Z" fill="#8FA184"/>
+        <path d="M54 83 C20 65 22 105 58 109 C70 98 65 88 54 83Z" fill="#657F60"/>
+        <path d="M73 110 C99 83 115 112 84 129 C72 126 68 118 73 110Z" fill="#9AAA91"/>
+      </svg>
+
+      <svg class="leaves bottom-left" viewBox="0 0 130 150" fill="none">
+        <path d="M5 145 C35 110 30 60 95 5" stroke="#61795D" stroke-width="2"/>
+        <path d="M20 120 C-2 140 0 100 29 97 C38 108 31 117 20 120Z" fill="#71896B"/>
+        <path d="M35 95 C65 120 80 85 49 73 C36 77 31 87 35 95Z" fill="#8FA184"/>
+        <path d="M54 64 C20 82 22 42 58 38 C70 49 65 59 54 64Z" fill="#657F60"/>
+        <path d="M73 37 C99 64 115 35 84 18 C72 21 68 29 73 37Z" fill="#9AAA91"/>
+      </svg>
+
+      <svg class="leaves bottom-right" viewBox="0 0 130 150" fill="none">
+        <path d="M5 145 C35 110 30 60 95 5" stroke="#61795D" stroke-width="2"/>
+        <path d="M20 120 C-2 140 0 100 29 97 C38 108 31 117 20 120Z" fill="#71896B"/>
+        <path d="M35 95 C65 120 80 85 49 73 C36 77 31 87 35 95Z" fill="#8FA184"/>
+        <path d="M54 64 C20 82 22 42 58 38 C70 49 65 59 54 64Z" fill="#657F60"/>
+        <path d="M73 37 C99 64 115 35 84 18 C72 21 68 29 73 37Z" fill="#9AAA91"/>
+      </svg>
+
+      <h1 class="couple-names">
+        PRINCESS &amp; HU SHENG SHIH
+      </h1>
+
+      <div class="date-section">
+
+        <p class="month">FEBRUARY</p>
+
+        <div class="date-grid">
+
+          <div class="date-side">
+            <span>FRIDAY</span>
+          </div>
+
+          <div class="day-number">
+            26
+          </div>
+
+          <div class="date-side">
+            <span>AT 2:00 PM</span>
+          </div>
+
+        </div>
+
+        <p class="year">2027</p>
+
+      </div>
+
+      <div class="venue">
+        <span>MAHARLIKA EVENTS</span>
+        <span>TAGAYTAY</span>
+      </div>
+
+      <!-- OPEN INVITATION -->
+      <a href="page2.html" class="open-button" id="openInvitation">
+        OPEN INVITATION
+      </a>
+
+    </section>
+
+  </main>
+
+  <!-- MUSIC BUTTON -->
+  <button id="musicToggle" class="music-toggle" type="button">
+    ♫ MUSIC OFF
+  </button>
+
+  <script>
+    const musicButton = document.getElementById("musicToggle");
+
+    // Send music command to the main music player
+    musicButton.addEventListener("click", () => {
+      window.parent.postMessage("MUSIC_TOGGLE", window.location.origin);
+    });
+
+    // Update button when music is toggled
+    window.addEventListener("message", (event) => {
+      if (event.origin !== window.location.origin) return;
+
+      if (event.data === "MUSIC_ON") {
+        musicButton.textContent = "♫ MUSIC ON";
+        musicButton.classList.add("playing");
+      }
+
+      if (event.data === "MUSIC_OFF") {
+        musicButton.textContent = "♫ MUSIC OFF";
+        musicButton.classList.remove("playing");
+      }
+    });
+
+    // Navigate inside the persistent music player
+   document.getElementById("openInvitation").addEventListener("click", (event) => {
+  event.preventDefault();
+
+  window.parent.postMessage(
+    { type: "NAVIGATE", url: "page2.html" },
+    window.location.origin
+  );
+});
+  </script>
+
+</body>
+</html>
