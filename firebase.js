@@ -3,6 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebas
 
 import {
   getAuth,
+  signInAnonymously,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut
@@ -39,6 +40,7 @@ export {
   app,
   db,
   auth,
+  signInAnonymously,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,

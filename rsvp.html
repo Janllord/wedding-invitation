@@ -541,16 +541,22 @@ h1 {
   </main>
 </div>
 
+
 <script type="module">
 import {
   db,
+  auth,
+  signInAnonymously,
   collection,
-  getDocs
+  getDocs,
+  addDoc,
+  serverTimestamp
 } from "./firebase.js";
 
 let guestListData = [];
 let selectedGuests = [];
 let MAX_GUESTS = 0;
+let isSubmitting = false;
 
 const searchInput = document.getElementById("guestSearch");
 const searchButton = document.getElementById("searchButton");
@@ -560,6 +566,24 @@ const guestListSection = document.getElementById("guestListSection");
 const guestTotal = document.getElementById("guestTotal");
 const rsvpFields = document.getElementById("rsvpFields");
 const form = document.getElementById("rsvpForm");
+const submitButton = form.querySelector(".submit-button");
+
+// ANONYMOUS GUEST AUTHENTICATION
+
+async function ensureGuestAuthentication() {
+  try {
+    if (!auth.currentUser) {
+      await signInAnonymously(auth);
+    }
+
+    console.log("Guest authentication successful.");
+    return true;
+
+  } catch (error) {
+    console.error("Guest authentication error:", error);
+    return false;
+  }
+}
 
 // LOAD GUESTS FROM FIREBASE
 
@@ -567,6 +591,12 @@ async function loadGuests() {
   try {
     searchButton.disabled = true;
     searchButton.textContent = "LOADING";
+
+    const authenticated = await ensureGuestAuthentication();
+
+    if (!authenticated) {
+      throw new Error("Guest authentication failed.");
+    }
 
     const snapshot = await getDocs(collection(db, "guestDirectory"));
 
@@ -594,7 +624,7 @@ async function loadGuests() {
 
     suggestions.style.display = "block";
     suggestions.innerHTML =
-      '<div class="no-result">Unable to load guest names. Please refresh the page.</div>';
+      '<div class="no-result">Unable to connect. Please refresh the page.</div>';
   }
 }
 
@@ -724,11 +754,12 @@ function renderGuestList() {
     (selectedGuests.length === 1 ? " GUEST ADDED" : " GUESTS ADDED");
 }
 
-// TEMPORARY SUBMIT PREVIEW
-// Actual Firebase RSVP saving will be connected separately.
+// SUBMIT RSVP TO FIREBASE
 
-form.addEventListener("submit", function(event) {
+form.addEventListener("submit", async function(event) {
   event.preventDefault();
+
+  if (isSubmitting) return;
 
   if (selectedGuests.length === 0) {
     alert("Please add at least one invited guest.");
@@ -744,35 +775,65 @@ form.addEventListener("submit", function(event) {
     return;
   }
 
-  const response = {
-    guests: [...selectedGuests],
-    attendance: attendance.value,
-    totalGuests: selectedGuests.length,
-    message: document.getElementById("guestMessage").value
-  };
+  isSubmitting = true;
+  submitButton.disabled = true;
+  submitButton.textContent = "SENDING...";
 
-  console.log("RSVP RESPONSE:", response);
+  try {
+    const authenticated = await ensureGuestAuthentication();
 
-  form.style.display = "none";
+    if (!authenticated || !auth.currentUser) {
+      throw new Error("Unable to authenticate guest.");
+    }
 
-  const thankYou = document.getElementById("thankYou");
-  const thankYouMessage = document.getElementById("thankYouMessage");
+    const response = {
+      guests: [...selectedGuests],
+      attendance: attendance.value,
+      totalGuests: selectedGuests.length,
+      message: document.getElementById("guestMessage").value.trim(),
+      anonymousUserId: auth.currentUser.uid,
+      submittedAt: serverTimestamp()
+    };
 
-  const names = selectedGuests.join(", ");
+    const docRef = await addDoc(
+      collection(db, "rsvpResponses"),
+      response
+    );
 
-  if (attendance.value === "Accept") {
-    thankYouMessage.textContent =
-      "Thank you! Your RSVP has been received for " +
-      names + ". We look forward to celebrating with you.";
-  } else {
-    thankYouMessage.textContent =
-      "Thank you for letting us know. We will miss " +
-      names + " on our special day.";
+    console.log("RSVP successfully saved:", docRef.id);
+
+    form.style.display = "none";
+
+    const thankYou = document.getElementById("thankYou");
+    const thankYouMessage = document.getElementById("thankYouMessage");
+
+    const names = selectedGuests.join(", ");
+
+    if (attendance.value === "Accept") {
+      thankYouMessage.textContent =
+        "Thank you! Your RSVP has been received for " +
+        names + ". We look forward to celebrating with you.";
+    } else {
+      thankYouMessage.textContent =
+        "Thank you for letting us know. We will miss " +
+        names + " on our special day.";
+    }
+
+    thankYou.style.display = "block";
+
+    window.parent.postMessage("STOP_MUSIC", window.location.origin);
+
+  } catch (error) {
+    console.error("RSVP submission error:", error);
+
+    alert(
+      "We were unable to submit your RSVP. Please try again later."
+    );
+
+    submitButton.disabled = false;
+    submitButton.textContent = "SEND RSVP";
+    isSubmitting = false;
   }
-
-  thankYou.style.display = "block";
-
-  window.parent.postMessage("STOP_MUSIC", window.location.origin);
 });
 
 // LOAD GUESTS WHEN PAGE OPENS
@@ -780,6 +841,7 @@ form.addEventListener("submit", function(event) {
 loadGuests();
 
 </script>
+
 
 </body>
 </html>
