@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>QR Management | Princess & Hu Sheng Shih</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0b1120;
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(100% - 32px, 1100px);
+      margin: auto;
+    }
+
+    header {
+      padding: 25px 0;
+      border-bottom: 1px solid #263247;
+    }
+
+    .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+      color: #e5c47b;
+    }
+
+    .subtitle {
+      font-size: 11px;
+      color: #94a3b8;
+      letter-spacing: 2px;
+      margin-top: 6px;
+    }
+
+    main {
+      padding: 40px 0;
+    }
+
+    .login-card {
+      max-width: 420px;
+      margin: 40px auto;
+      padding: 32px;
+      background: #111c2e;
+      border: 1px solid #29374d;
+      border-radius: 18px;
+    }
+
+    .dashboard {
+      display: none;
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 21px;
+      margin-bottom: 10px;
+    }
+
+    .muted {
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    label {
+      display: block;
+      margin: 20px 0 8px;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border-radius: 9px;
+      border: 1px solid #334155;
+      background: #0b1120;
+      color: white;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-color: #e5c47b;
+    }
+
+    button {
+      padding: 13px 18px;
+      border: none;
+      border-radius: 9px;
+      background: #e5c47b;
+      color: #172033;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .primary-button {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .secondary-button {
+      background: #263247;
+      color: #f8fafc;
+    }
+
+    .danger-button {
+      background: #7f1d1d;
+      color: white;
+    }
+
+    .message {
+      margin-top: 14px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #fca5a5;
+    }
+
+    .dashboard-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .logout {
+      background: #263247;
+      color: white;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat-card, .panel {
+      background: #111c2e;
+      border: 1px solid #29374d;
+      border-radius: 15px;
+      padding: 23px;
+    }
+
+    .stat-number {
+      color: #e5c47b;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .stat-label {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .panel p {
+      margin-bottom: 15px;
+    }
+
+    .panel button {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .wide-panel {
+      margin-top: 20px;
+    }
+
+    .notice {
+      padding: 15px;
+      border: 1px solid #66552e;
+      background: #292416;
+      border-radius: 10px;
+      color: #f5d99a;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .status-line {
+      margin-top: 15px;
+      color: #94a3b8;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 650px) {
+      main {
+        padding-top: 25px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-card, .panel {
+        padding: 19px;
+      }
+
+      .login-card {
+        margin: 20px auto;
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <div class="brand">Princess & Hu Sheng Shih</div>
+    <div class="subtitle">ADMIN QR MANAGEMENT</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ADMIN LOGIN -->
+  <section id="loginSection" class="login-card">
+
+    <h1>QR Management</h1>
+
+    <p class="muted">
+      Sign in using an authorized administrator account.
+    </p>
+
+    <form id="loginForm">
+
+      <label for="email">Email Address</label>
+      <input
+        id="email"
+        type="email"
+        autocomplete="username"
+        required
+      >
+
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        autocomplete="current-password"
+        required
+      >
+
+      <button id="loginButton" class="primary-button" type="submit">
+        SIGN IN
+      </button>
+
+      <p id="loginMessage" class="message" role="alert"></p>
+
+    </form>
+  </section>
+
+  <!-- ADMIN DASHBOARD -->
+  <section id="dashboardSection" class="dashboard">
+
+    <div class="dashboard-top">
+
+      <div>
+        <h1>QR Guest Management</h1>
+        <p class="muted">
+          Wedding Day: February 26, 2027 · 3:00 PM
+        </p>
+      </div>
+
+      <button id="logoutButton" class="logout">
+        LOG OUT
+      </button>
+
+    </div>
+
+    <div class="notice">
+      <strong>Important:</strong>
+      Changes to the final guest list must be published before they
+      become available to the Staff Portal. Existing RSVP records
+      will remain unchanged.
+    </div>
+
+    <!-- STATISTICS -->
+    <div class="stats">
+
+      <div class="stat-card">
+        <div id="acceptedCount" class="stat-number">—</div>
+        <div class="stat-label">Accepted Guests</div>
+      </div>
+
+      <div class="stat-card">
+        <div id="publishedCount" class="stat-number">—</div>
+        <div class="stat-label">Published Guests</div>
+      </div>
+
+      <div class="stat-card">
+        <div id="passCount" class="stat-number">—</div>
+        <div class="stat-label">QR Passes Issued</div>
+      </div>
+
+    </div>
+
+    <!-- RSVP AND FINALIZATION -->
+    <div class="section-grid">
+
+      <div class="panel">
+        <h2>01. Sync RSVP</h2>
+
+        <p class="muted">
+          Retrieve the latest Accept and Decline responses
+          from the existing RSVP system.
+        </p>
+
+        <button id="syncRsvpButton">
+          SYNC RSVP RESPONSES
+        </button>
+
+        <p id="syncMessage" class="status-line">
+          Not synchronized yet.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>02. Final Guest List</h2>
+
+        <p class="muted">
+          Review and prepare the approved guest list
+          before publishing it to the Staff Portal.
+        </p>
+
+        <button id="finalizeButton">
+          PREPARE FINAL GUEST LIST
+        </button>
+
+        <p id="finalizeMessage" class="status-line">
+          No final list prepared yet.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>03. QR Pass Generation</h2>
+
+        <p class="muted">
+          Create one individual QR pass for every eligible
+          guest in the final approved list.
+        </p>
+
+        <button id="generatePassesButton">
+          GENERATE QR PASSES
+        </button>
+
+        <p id="passMessage" class="status-line">
+          No QR passes generated yet.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>04. Publish Updates</h2>
+
+        <p class="muted">
+          Publish the approved guest list and pass status
+          so the Staff Portal can access the latest records.
+        </p>
+
+        <button id="publishButton">
+          PUBLISH GUEST LIST
+        </button>
+
+        <p id="publishMessage" class="status-line">
+          No published updates yet.
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- QR PASS PREVIEW -->
+    <div class="panel wide-panel" id="qrPassPreview" style="display: none;">
+
+      <h2>GENERATED QR PASSES</h2>
+
+      <p class="muted">
+        Individual QR passes for accepted guests.
+        Download and securely distribute each guest's QR pass.
+      </p>
+
+      <div
+        id="qrPassList"
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 16px;
+          margin-top: 20px;
+        "
+      ></div>
+
+      <p id="qrPreviewMessage" class="status-line"></p>
+
+    </div>
+
+    <!-- REPLACEMENTS -->
+    <div class="panel wide-panel">
+
+      <h2>05. Guest Replacement</h2>
+
+      <p class="muted">
+        Search for an existing guest or prepare a replacement.
+        The old guest's pass must be revoked before a replacement
+        becomes eligible for a new pass.
+      </p>
+
+      <label for="guestSearch">Search Guest Name</label>
+
+      <input
+        id="guestSearch"
+        type="search"
+        placeholder="Enter guest name..."
+      >
+
+      <p id="replacementMessage" class="status-line">
+        Guest management is not connected yet.
+      </p>
+
+    </div>
+
+    <p id="dashboardMessage" class="message" role="status"></p>
+
+  </section>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script type="module" src="./admin-qr.js"></script>
+
+</body>
+</html>

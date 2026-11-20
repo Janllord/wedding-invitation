@@ -16,11 +16,16 @@ import {
   getDocs,
   getDoc,
   addDoc,
+  setDoc,
   updateDoc,
   query,
   where,
+  orderBy,
+  limit,
+  onSnapshot,
   serverTimestamp,
-  writeBatch
+  writeBatch,
+  runTransaction
 } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -40,18 +45,29 @@ export {
   app,
   db,
   auth,
+
+  // Authentication
   signInAnonymously,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+
+  // Firestore basics
   collection,
   doc,
   getDocs,
   getDoc,
   addDoc,
+  setDoc,
   updateDoc,
   query,
   where,
+
+  // Additional Firestore functions
+  orderBy,
+  limit,
+  onSnapshot,
   serverTimestamp,
-  writeBatch
+  writeBatch,
+  runTransaction
 };

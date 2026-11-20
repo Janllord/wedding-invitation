@@ -1,0 +1,465 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Staff Portal | Princess & Hu Sheng Shih</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0b1120;
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(100% - 32px, 1050px);
+      margin: auto;
+    }
+
+    header {
+      padding: 25px 0;
+      border-bottom: 1px solid #263247;
+    }
+
+    .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+      color: #e5c47b;
+    }
+
+    .subtitle {
+      font-size: 11px;
+      color: #94a3b8;
+      letter-spacing: 2px;
+      margin-top: 6px;
+    }
+
+    main {
+      padding: 45px 0;
+    }
+
+    .login-card {
+      max-width: 420px;
+      margin: 40px auto;
+      padding: 32px;
+      background: #111c2e;
+      border: 1px solid #29374d;
+      border-radius: 18px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .muted {
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    label {
+      display: block;
+      margin: 22px 0 8px;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 9px;
+      border: 1px solid #334155;
+      background: #0b1120;
+      color: white;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus {
+      border-color: #e5c47b;
+    }
+
+    .password-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .password-wrapper input {
+      padding-right: 55px;
+    }
+
+    .eye-button {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      color: #e5c47b;
+      font-size: 19px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 22px;
+      border: none;
+      border-radius: 9px;
+      background: #e5c47b;
+      color: #172033;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #fca5a5;
+    }
+
+    .dashboard {
+      display: none;
+    }
+
+    .dashboard-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .logout {
+      width: auto;
+      margin: 0;
+      padding: 11px 20px;
+      background: #263247;
+      color: white;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat-card,
+    .panel {
+      background: #111c2e;
+      border: 1px solid #29374d;
+      border-radius: 15px;
+      padding: 24px;
+    }
+
+    .stat-number {
+      font-size: 34px;
+      font-weight: 700;
+      color: #e5c47b;
+      margin-bottom: 7px;
+    }
+
+    .stat-label {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .scan-panel {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .scan-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .scan-panel h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 8px;
+    }
+
+    #qrReader {
+      display: none;
+      width: 100%;
+      max-width: 500px;
+      margin: 25px auto 10px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    #qrReader video {
+      border-radius: 12px;
+    }
+
+    .scanner-controls {
+      display: none;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .secondary-button {
+      background: #263247;
+      color: white;
+    }
+
+    .scan-result {
+      display: none;
+      max-width: 500px;
+      margin: 20px auto 0;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: left;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .scan-result.success {
+      display: block;
+      background: #123528;
+      border: 1px solid #26734e;
+      color: #bbf7d0;
+    }
+
+    .scan-result.error {
+      display: block;
+      background: #3b1c25;
+      border: 1px solid #8b3547;
+      color: #fecaca;
+    }
+
+    .scan-result h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .scan-result p {
+      font-size: 14px;
+    }
+
+    .recent {
+      margin-top: 25px;
+    }
+
+    .recent h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 500px) {
+      main {
+        padding-top: 25px;
+      }
+
+      .login-card {
+        margin: 20px auto;
+        padding: 25px;
+      }
+
+      .stats {
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <div class="brand">Princess & Hu Sheng Shih</div>
+    <div class="subtitle">WEDDING STAFF PORTAL</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- LOGIN -->
+  <section id="loginSection" class="login-card">
+
+    <h1>Staff Login</h1>
+
+    <p class="muted">
+      Sign in to access the wedding guest check-in dashboard.
+    </p>
+
+    <form id="loginForm">
+
+      <label for="email">Email Address</label>
+
+      <input
+        id="email"
+        type="email"
+        autocomplete="username"
+        required
+      >
+
+      <label for="password">Password</label>
+
+      <div class="password-wrapper">
+
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          required
+        >
+
+        <button
+          type="button"
+          id="togglePassword"
+          class="eye-button"
+          aria-label="Show password"
+          title="Show password"
+        >
+          👁
+        </button>
+
+      </div>
+
+      <button id="loginButton" type="submit">
+        SIGN IN
+      </button>
+
+      <p id="loginMessage" class="message" role="alert"></p>
+
+    </form>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboardSection" class="dashboard">
+
+    <div class="dashboard-top">
+
+      <div>
+        <h1>Guest Check-in</h1>
+        <p class="muted">
+          February 26, 2027 · 3:00 PM
+        </p>
+      </div>
+
+      <button id="logoutButton" class="logout">
+        LOG OUT
+      </button>
+
+    </div>
+
+    <div class="stats">
+
+      <div class="stat-card">
+        <div id="checkedInCount" class="stat-number">0</div>
+        <div class="stat-label">Checked In</div>
+      </div>
+
+      <div class="stat-card">
+        <div id="invitedCount" class="stat-number">74</div>
+        <div class="stat-label">Invited Guests</div>
+      </div>
+
+    </div>
+
+    <!-- QR SCANNER -->
+    <div class="panel scan-panel">
+
+      <div class="scan-icon">▦</div>
+
+      <h2>Scan Guest QR Code</h2>
+
+      <p class="muted">
+        Verify each guest's individual wedding pass.
+      </p>
+
+      <button id="scanButton">
+        OPEN QR SCANNER
+      </button>
+
+      <div id="qrReader"></div>
+
+      <div id="scannerControls" class="scanner-controls">
+
+        <button
+          id="stopScanButton"
+          class="secondary-button"
+          type="button"
+        >
+          STOP SCANNER
+        </button>
+
+        <button
+          id="scanNextButton"
+          type="button"
+        >
+          SCAN NEXT GUEST
+        </button>
+
+      </div>
+
+      <div
+        id="scanResult"
+        class="scan-result"
+        role="status"
+        aria-live="polite"
+      ></div>
+
+      <p id="scannerMessage" class="message"></p>
+
+    </div>
+
+    <!-- RECENT CHECK-INS -->
+    <div class="panel recent">
+
+      <h2>Recent Check-ins</h2>
+
+      <p class="muted" id="recentCheckins">
+        No guests checked in yet.
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
+
+<!-- QR SCANNER LIBRARY -->
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+<!-- STAFF JAVASCRIPT -->
+<script type="module" src="./staff.js"></script>
+
+</body>
+</html>
