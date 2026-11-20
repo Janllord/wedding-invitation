@@ -230,6 +230,7 @@ function displayFinalGuestReview() {
   finalGuestReview.appendChild(note);
 }
 
+
 // CREATE QR PASS CARD
 function createQRCard(guest, token) {
   const card = document.createElement("div");
@@ -257,9 +258,9 @@ function createQRCard(guest, token) {
     display:flex;
     justify-content:center;
     align-items:center;
-    min-height:180px;
+    min-height:272px;
     background:white;
-    padding:10px;
+    padding:16px;
     border-radius:8px;
   `;
 
@@ -274,34 +275,65 @@ function createQRCard(guest, token) {
   card.append(name, qrContainer, downloadButton);
   qrPassList.appendChild(card);
 
-  // NEW QR FORMAT: includes guest ID
+  // KEEP THE EXISTING QR PAYLOAD FORMAT
   const qrPayload = `WEDDINGPASS:${guest.guestId}:${token}`;
 
   new QRCode(qrContainer, {
     text: qrPayload,
-    width: 180,
-    height: 180,
+    width: 240,
+    height: 240,
     colorDark: "#000000",
     colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.H
+    correctLevel: QRCode.CorrectLevel.M
   });
 
-  downloadButton.addEventListener("click", () => {
-    const canvas = qrContainer.querySelector("canvas");
-    const image = qrContainer.querySelector("img");
+  downloadButton.addEventListener("click", async () => {
+    const sourceCanvas = qrContainer.querySelector("canvas");
+    const sourceImage = qrContainer.querySelector("img");
 
-    let imageURL = "";
-
-    if (canvas) {
-      imageURL = canvas.toDataURL("image/png");
-    } else if (image && image.src.startsWith("data:image")) {
-      imageURL = image.src;
-    }
-
-    if (!imageURL) {
+    if (!sourceCanvas && !sourceImage) {
       alert("QR image is not ready yet. Please try again.");
       return;
     }
+
+    if (sourceImage && !sourceCanvas) {
+      try {
+        await sourceImage.decode();
+      } catch (error) {
+        alert("Unable to prepare QR image. Please try again.");
+        return;
+      }
+    }
+
+    // CREATE DOWNLOAD IMAGE WITH WHITE QUIET ZONE
+    const outputCanvas = document.createElement("canvas");
+    const padding = 40;
+    const qrSize = 240;
+
+    outputCanvas.width = qrSize + (padding * 2);
+    outputCanvas.height = qrSize + (padding * 2);
+
+    const context = outputCanvas.getContext("2d");
+
+    context.fillStyle = "#ffffff";
+    context.fillRect(
+      0,
+      0,
+      outputCanvas.width,
+      outputCanvas.height
+    );
+
+    context.imageSmoothingEnabled = false;
+
+    context.drawImage(
+      sourceCanvas || sourceImage,
+      padding,
+      padding,
+      qrSize,
+      qrSize
+    );
+
+    const imageURL = outputCanvas.toDataURL("image/png");
 
     const link = document.createElement("a");
     link.href = imageURL;
@@ -313,6 +345,7 @@ function createQRCard(guest, token) {
     link.remove();
   });
 }
+
 
 // ISSUE OR REISSUE QR PASS
 async function issueOrReissuePass(guest) {
